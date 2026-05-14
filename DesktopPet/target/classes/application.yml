@@ -8,8 +8,8 @@ server:
 pet:
   # 主窗口
   main:
-    width: 300
-    height: 400
+    width: 200
+    height: 250
     always-on-top: true
     drag-enabled: true
 

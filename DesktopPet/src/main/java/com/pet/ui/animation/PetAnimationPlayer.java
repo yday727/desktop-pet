@@ -87,7 +87,7 @@ public class PetAnimationPlayer {
             List<Image> list = new ArrayList<>();
             try {
                 for (int i = 0; i < action.getFrameCount(); i++) {
-                    String path = String.format("/images/pet/%s/%s/%d.png",
+                    String path = String.format("/images/%s/state/%s/%d.png",
                             currentRole.getFolder(),
                             action.getFolderName(),
                             i);

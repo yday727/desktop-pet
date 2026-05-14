@@ -1,7 +1,7 @@
 package com.pet;
 
 import com.pet.common.enums.PetRole;
-import com.pet.common.enums.action.DefaultAction;
+import com.pet.common.enums.state.DefaultState;
 import com.pet.ui.frame.PetMainFrame;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -27,7 +27,7 @@ public class DesktopPetApplication {
                 mainFrame.init(stage);
 
                 mainFrame.setRole(PetRole.Default);
-                mainFrame.playAnimation(DefaultAction.RUN);
+                mainFrame.playAnimation(DefaultState.RUN);
             } catch (Exception e) {
                 e.printStackTrace();
             }

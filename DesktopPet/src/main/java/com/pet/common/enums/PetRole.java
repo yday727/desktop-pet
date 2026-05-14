@@ -1,9 +1,12 @@
 package com.pet.common.enums;
 
+import lombok.Getter;
+
 /**
  * 桌宠枚举类
  * 添加的自定义桌宠应加入此枚举类
  */
+@Getter
 public enum PetRole {
     Default("default");
 
@@ -13,7 +16,4 @@ public enum PetRole {
         this.folder = folder;
     }
 
-    public String getFolder() {
-        return folder;
-    }
 }
