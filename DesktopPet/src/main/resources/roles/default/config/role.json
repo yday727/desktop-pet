@@ -1,0 +1,30 @@
+{
+  "name": "default",
+  "displayName": "默认桌宠",
+  "description": "系统默认桌宠角色",
+  "width": 200,
+  "height": 250,
+  "actions": [
+    {
+      "name": "IDLE",
+      "folderName": "idle",
+      "frameCount": 1,
+      "loop": false,
+      "frameDurationMs": 160
+    },
+    {
+      "name": "STAND",
+      "folderName": "stand",
+      "frameCount": 3,
+      "loop": true,
+      "frameDurationMs": 160
+    },
+    {
+      "name": "RUN",
+      "folderName": "run",
+      "frameCount": 11,
+      "loop": true,
+      "frameDurationMs": 160
+    }
+  ]
+}

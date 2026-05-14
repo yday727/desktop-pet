@@ -1,19 +1,45 @@
 package com.pet.common.enums;
 
+import com.pet.common.config.RoleConfig;
+import com.pet.common.config.RoleManager;
 import lombok.Getter;
 
-/**
- * 桌宠枚举类
- * 添加的自定义桌宠应加入此枚举类
- */
+import java.util.List;
+
 @Getter
-public enum PetRole {
-    Default("default");
+public class PetRole {
 
+    private static RoleManager roleManager;
+
+    private final String roleName;
     private final String folder;
+    private RoleConfig config;
 
-    PetRole(String folder) {
-        this.folder = folder;
+    private PetRole(String roleName) {
+        this.roleName = roleName;
+        this.folder = roleName;
     }
 
+    public static void setRoleManager(RoleManager manager) {
+        roleManager = manager;
+        if (Default != null) {
+            Default.loadConfig();
+        }
+    }
+
+    public static PetRole getDefault() {
+        return Default;
+    }
+
+    public static List<PetRole> getAllRoles() {
+        return List.of(Default);
+    }
+
+    private void loadConfig() {
+        if (roleManager != null) {
+            this.config = roleManager.getRoleConfig(this.roleName);
+        }
+    }
+
+    public static final PetRole Default = new PetRole("default");
 }
