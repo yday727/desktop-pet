@@ -65,7 +65,7 @@ public class PetAnimationPlayer {
         if (frames.isEmpty()) return;
 
         Timeline timeline = new Timeline();
-        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.setCycleCount(action.isLoop() ? Animation.INDEFINITE : 1);
 
         for (int i = 0; i < frames.size(); i++) {
             int idx = i;
