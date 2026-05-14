@@ -1,12 +1,11 @@
 package com.pet.common.config;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class RoleConfig {
     private String name;
     private String displayName;
@@ -16,7 +15,6 @@ public class RoleConfig {
     private List<ActionConfig> actions;
 
     @Data
-    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ActionConfig {
         private String name;
         private String folderName;
