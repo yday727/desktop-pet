@@ -1,6 +1,5 @@
 package com.pet.ui.frame;
 
-import com.pet.common.animation.PetAnimationAction;
 import com.pet.common.config.PetProperties;
 import com.pet.common.enums.PetRole;
 import com.pet.ui.animation.PetAnimationPlayer;
@@ -13,9 +12,6 @@ import javafx.stage.StageStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-/**
- * 桌宠主窗口
- */
 @Component
 public class PetMainFrame {
 
@@ -50,20 +46,23 @@ public class PetMainFrame {
         stage.show();
     }
 
-    // ==================== 对外接口 ====================
     public void setRole(PetRole role) {
         animPlayer.setRole(role);
+        animPlayer.loadRole(role);
     }
 
-    public void playStatic(PetAnimationAction action) {
-        animPlayer.playStatic(action);
+    public void playStatic(String actionName) {
+        animPlayer.playStatic(actionName);
     }
 
-    public void playAnimation(PetAnimationAction action) {
-        animPlayer.playAnimation(action);
+    public void playAnimation(String actionName) {
+        animPlayer.playAnimation(actionName);
     }
 
-    // ==================== 拖拽 ====================
+    public void playAnimation(String actionName, int frameMs) {
+        animPlayer.playAnimation(actionName, frameMs);
+    }
+
     private double x, y;
     private void enableDrag(StackPane root) {
         root.setOnMousePressed(e -> {

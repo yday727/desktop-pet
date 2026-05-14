@@ -2,33 +2,28 @@ spring:
   application:
     name: desktop-pet
 server:
-  port: -1  # 桌面项目禁用端口
+  port: -1
 
 # 桌宠配置
 pet:
-  # 主窗口
   main:
     width: 200
     height: 250
     always-on-top: true
     drag-enabled: true
 
-  # 气泡对话框
   bubble:
     show-time: 3000
     opacity: 0.9
 
-  # AI
   ai:
     timeout: 10000
     max-tokens: 1024
 
-  # 日程
   schedule:
     remind-before-minutes: 5
     check-interval: 1000
 
-# 日志
 logging:
   level:
     com.pet: info

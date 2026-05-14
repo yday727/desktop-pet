@@ -1,6 +1,5 @@
 package com.pet.ui.animation;
 
-import com.pet.common.animation.PetAnimationAction;
 import com.pet.common.enums.PetRole;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -13,9 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-/**
- * 桌宠动画播放器
- */
 public class PetAnimationPlayer {
 
     private static final Logger log = LoggerFactory.getLogger(PetAnimationPlayer.class);
@@ -30,7 +26,6 @@ public class PetAnimationPlayer {
         this.imageView = imageView;
     }
 
-    // ==================== 加载角色全部动作 ====================
     public void loadRole(PetRole role) {
         if (roleCache.containsKey(role.getFolder())) return;
 
@@ -39,33 +34,31 @@ public class PetAnimationPlayer {
         log.info("宠物角色已加载：{}", role.name());
     }
 
-    // ==================== 切换当前宠物 ====================
     public void setRole(PetRole role) {
         this.currentRole = role;
         loadRole(role);
     }
 
-    // ==================== 播放静态 ====================
-    public void playStatic(PetAnimationAction action) {
+    public void playStatic(String actionName) {
         stop();
-        List<Image> frames = loadFramesIfNeed(action);
+        List<Image> frames = loadFrames(actionName, 1);
         if (!frames.isEmpty()) {
             imageView.setImage(frames.get(0));
         }
     }
 
-    // ==================== 播放动画 ====================
-    public void playAnimation(PetAnimationAction action) {
-        playAnimation(action, 160);
+    public void playAnimation(String actionName) {
+        playAnimation(actionName, 160);
     }
 
-    public void playAnimation(PetAnimationAction action, int frameMs) {
+    public void playAnimation(String actionName, int frameMs) {
         stop();
-        List<Image> frames = loadFramesIfNeed(action);
+        List<Image> frames = loadFrames(actionName, -1);
         if (frames.isEmpty()) return;
 
         Timeline timeline = new Timeline();
-        timeline.setCycleCount(action.isLoop() ? Animation.INDEFINITE : 1);
+        boolean isLoop = shouldLoop(actionName);
+        timeline.setCycleCount(isLoop ? Animation.INDEFINITE : 1);
 
         for (int i = 0; i < frames.size(); i++) {
             int idx = i;
@@ -78,26 +71,56 @@ public class PetAnimationPlayer {
         currentAnim = timeline;
     }
 
-    // ==================== 懒加载帧（用到再加载） ====================
-    private List<Image> loadFramesIfNeed(PetAnimationAction action) {
+    private List<Image> loadFrames(String actionName, int maxFrames) {
+        if (currentRole == null) return Collections.emptyList();
+
         Map<String, List<Image>> actionMap = roleCache.get(currentRole.getFolder());
         if (actionMap == null) return Collections.emptyList();
 
-        return actionMap.computeIfAbsent(action.getFolderName(), k -> {
+        return actionMap.computeIfAbsent(actionName, k -> {
             List<Image> list = new ArrayList<>();
+            int frameCount = getFrameCount(actionName);
+            if (maxFrames > 0) {
+                frameCount = Math.min(frameCount, maxFrames);
+            }
+
             try {
-                for (int i = 0; i < action.getFrameCount(); i++) {
-                    String path = String.format("/images/%s/state/%s/%d.png",
+                for (int i = 0; i < frameCount; i++) {
+                    String path = String.format("/roles/%s/state/%s/%d.png",
                             currentRole.getFolder(),
-                            action.getFolderName(),
+                            actionName,
                             i);
                     list.add(new Image(Objects.requireNonNull(getClass().getResourceAsStream(path))));
                 }
             } catch (Exception e) {
-                log.error("加载动作失败: {}/{}", currentRole.getFolder(), action.getFolderName());
+                log.error("加载动作失败: {}/{}", currentRole.getFolder(), actionName);
             }
             return list;
         });
+    }
+
+    private int getFrameCount(String actionName) {
+        var config = currentRole.getConfig();
+        if (config != null && config.getActions() != null) {
+            return config.getActions().stream()
+                    .filter(a -> a.getName().equalsIgnoreCase(actionName))
+                    .findFirst()
+                    .map(a -> a.getFrameCount() != null ? a.getFrameCount() : 1)
+                    .orElse(1);
+        }
+        return 1;
+    }
+
+    private boolean shouldLoop(String actionName) {
+        var config = currentRole.getConfig();
+        if (config != null && config.getActions() != null) {
+            return config.getActions().stream()
+                    .filter(a -> a.getName().equalsIgnoreCase(actionName))
+                    .findFirst()
+                    .map(a -> a.getLoop() != null ? a.getLoop() : false)
+                    .orElse(false);
+        }
+        return false;
     }
 
     public void stop() {
