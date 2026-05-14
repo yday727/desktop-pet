@@ -1,0 +1,82 @@
+{
+  "groups": [
+    {
+      "name": "pet",
+      "type": "com.pet.common.config.PetProperties",
+      "sourceType": "com.pet.common.config.PetProperties"
+    },
+    {
+      "name": "pet.ai",
+      "type": "com.pet.common.config.PetProperties$AiConfig",
+      "sourceType": "com.pet.common.config.PetProperties"
+    },
+    {
+      "name": "pet.bubble",
+      "type": "com.pet.common.config.PetProperties$BubbleConfig",
+      "sourceType": "com.pet.common.config.PetProperties"
+    },
+    {
+      "name": "pet.main",
+      "type": "com.pet.common.config.PetProperties$MainConfig",
+      "sourceType": "com.pet.common.config.PetProperties"
+    },
+    {
+      "name": "pet.schedule",
+      "type": "com.pet.common.config.PetProperties$ScheduleConfig",
+      "sourceType": "com.pet.common.config.PetProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "pet.ai.max-tokens",
+      "type": "java.lang.Integer",
+      "sourceType": "com.pet.common.config.PetProperties$AiConfig"
+    },
+    {
+      "name": "pet.ai.timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "com.pet.common.config.PetProperties$AiConfig"
+    },
+    {
+      "name": "pet.bubble.opacity",
+      "type": "java.lang.Double",
+      "sourceType": "com.pet.common.config.PetProperties$BubbleConfig"
+    },
+    {
+      "name": "pet.bubble.show-time",
+      "type": "java.lang.Integer",
+      "sourceType": "com.pet.common.config.PetProperties$BubbleConfig"
+    },
+    {
+      "name": "pet.main.always-on-top",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.pet.common.config.PetProperties$MainConfig"
+    },
+    {
+      "name": "pet.main.drag-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.pet.common.config.PetProperties$MainConfig"
+    },
+    {
+      "name": "pet.main.height",
+      "type": "java.lang.Integer",
+      "sourceType": "com.pet.common.config.PetProperties$MainConfig"
+    },
+    {
+      "name": "pet.main.width",
+      "type": "java.lang.Integer",
+      "sourceType": "com.pet.common.config.PetProperties$MainConfig"
+    },
+    {
+      "name": "pet.schedule.check-interval",
+      "type": "java.lang.Integer",
+      "sourceType": "com.pet.common.config.PetProperties$ScheduleConfig"
+    },
+    {
+      "name": "pet.schedule.remind-before-minutes",
+      "type": "java.lang.Integer",
+      "sourceType": "com.pet.common.config.PetProperties$ScheduleConfig"
+    }
+  ],
+  "hints": []
+}
