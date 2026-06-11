@@ -1,3 +1,3 @@
 # desktop-pet 桌宠
-Just a exercise
+Just a uncompleted exercise
 一个练习
